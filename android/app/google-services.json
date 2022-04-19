@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "171478697751",
+    "firebase_url": "https://nss-vhss-default-rtdb.firebaseio.com",
+    "project_id": "nss-vhss",
+    "storage_bucket": "nss-vhss.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171478697751:android:f03031f9b94f4c35cdd952",
+        "android_client_info": {
+          "package_name": "nss.sunrise.in.sunrise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "171478697751-lafhl94tok47t4c76bdqqelgimjvobdj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAM1kMyWLs1q95h-kJ8HTL_9Fe3T7Nxl5c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "171478697751-lafhl94tok47t4c76bdqqelgimjvobdj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
