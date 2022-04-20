@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String icons247-2479287Allu-arjun-png = 'assets/icons/247-2479287_allu-arjun-png.png';
   static const String iconsAppstore = 'assets/icons/appstore.png';
   static const String iconsIcLauncher = 'assets/icons/ic_launcher.png';
   static const String iconsPlaystore = 'assets/icons/playstore.png';
