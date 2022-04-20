@@ -1,12 +1,10 @@
-import 'dart:ffi';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:simple_gradient_text/simple_gradient_text.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:sunrise/login.dart';
 
 class MainScreen extends StatefulWidget {
@@ -17,7 +15,7 @@ class MainScreen extends StatefulWidget {
 }
 
 FirebaseDatabase database = FirebaseDatabase.instance;
-final user = FirebaseAuth.instance.currentUser;
+var user = FirebaseAuth.instance.currentUser;
 const dialog = YYDialog;
 
 class _MainScreenState extends State<MainScreen> {
@@ -167,12 +165,19 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
+  void _userA(var userB){
+    setState(() {
+      user = userB;
+    });
+  }
+
   var yyDialogue = YYDialog();
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     YYDialog.init(context);
+    user != null ? _userA(user): null;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -197,104 +202,181 @@ class _MainScreenState extends State<MainScreen> {
           ),
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
-            child: PopupMenuButton(
-              itemBuilder: (context) => [
-                const PopupMenuItem(
-                  child: Text("Login"),
-                  value: 1,
-                ),
-                const PopupMenuItem(
-                  child: Text("Logout"),
-                  value: 2,
-                ),
-                const PopupMenuItem(
-                  child: Text("Contact"),
-                  value: 3,
-                ),
-                const PopupMenuItem(
-                  child: Text("About"),
-                  value: 4,
-                )
-              ],
-              onSelected: (value) {
-                value == 1
-                    ? {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Login(),
-                          ),
-                        )
-                      }
-                    : value == 2
-                        ? {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text("Logout?")))
-                          }
-                        : value == 3
-                            ? {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text("Contact?")))
-                              }
-                            : {
-                                yyDialogue.build(context)
-                                  ..width = 250
-                                  ..height = 250
-                                  ..borderRadius = 15
-                                  ..widget(
-                                    Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Column(
-                                          children: [
-                                            const Text(
-                                              "ABOUT",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.blueGrey,
-                                                  fontSize: 18),
-                                            ),
-                                            const SizedBox(
-                                              height: 25,
-                                            ),
-                                            const Text(
-                                              "NSS UNIT : MPM / HSE / SFU  58 \n \nDeveloped by \nMuhammed Shabeer OP \n \nvalanchery higher secondary school",
-                                              style: TextStyle(
-                                                fontSize: 15,
+            child: user != null
+                ? PopupMenuButton(
+                    itemBuilder: (context) => [
+                      const PopupMenuItem(
+                        child: Text("Logout"),
+                        value: 2,
+                      ),
+                      const PopupMenuItem(
+                        child: Text("Contact"),
+                        value: 3,
+                      ),
+                      const PopupMenuItem(
+                        child: Text("About"),
+                        value: 4,
+                      )
+                    ],
+                    onSelected: (value) {
+                      value == 2
+                          ? {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text("Logout?")))
+                            }
+                          : value == 3
+                              ? {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(content: Text("Contact?")))
+                                }
+                              : {
+                                  yyDialogue.build(context)
+                                    ..width = 250
+                                    ..height = 270
+                                    ..borderRadius = 15
+                                    ..widget(
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Column(
+                                            children: [
+                                              const Text(
+                                                "ABOUT",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.blueGrey,
+                                                    fontSize: 18),
                                               ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            Container(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10, right: 10),
-                                              child: ElevatedButton(
-                                                onPressed: () {},
-                                                child: Row(
-                                                  children: const [
-                                                    Text("Share"),
-                                                    Spacer(),
-                                                    Icon(Icons.share)
-                                                  ],
+                                              const SizedBox(
+                                                height: 25,
+                                              ),
+                                              const Text(
+                                                "NSS UNIT : MPM / HSE / SFU  58 \n \nDeveloped by \nMuhammed Shabeer OP \n \nvalanchery higher secondary school",
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Container(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10, right: 10),
+                                                child: ElevatedButton(
+                                                  onPressed: () {},
+                                                  child: Row(
+                                                    children: const [
+                                                      Text("Share"),
+                                                      Spacer(),
+                                                      Icon(Icons.share)
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  )
-                                  ..show(),
-                              };
-              },
-              icon: const Icon(
-                Icons.more_vert,
-                color: Colors.black,
-              ),
-            ),
+                                    )
+                                    ..show(),
+                                };
+                    },
+                    icon: const Icon(
+                      Icons.more_vert,
+                      color: Colors.black,
+                    ),
+                  )
+                : PopupMenuButton(
+                    itemBuilder: (context) => [
+                      const PopupMenuItem(
+                        child: Text("Login"),
+                        value: 1,
+                      ),
+                      const PopupMenuItem(
+                        child: Text("Contact"),
+                        value: 2,
+                      ),
+                      const PopupMenuItem(
+                        child: Text("About"),
+                        value: 3,
+                      )
+                    ],
+                    onSelected: (value) {
+                      value == 1
+                          ? {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Login(),
+                                ),
+                              )
+                            }
+                          : value == 2
+                              ? {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(content: Text("Logout?")))
+                                }
+                              : {
+                                  yyDialogue.build(context)
+                                    ..width = 250
+                                    ..height = 270
+                                    ..borderRadius = 15
+                                    ..widget(
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Column(
+                                            children: [
+                                              const Text(
+                                                "ABOUT",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.blueGrey,
+                                                    fontSize: 18),
+                                              ),
+                                              const SizedBox(
+                                                height: 25,
+                                              ),
+                                              const Text(
+                                                "NSS UNIT : MPM / HSE / SFU  58 \n \nDeveloped by \nMuhammed Shabeer OP \n \nvalanchery higher secondary school",
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Container(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10, right: 10),
+                                                child: ElevatedButton(
+                                                  onPressed: () {},
+                                                  child: Row(
+                                                    children: const [
+                                                      Text("Share"),
+                                                      Spacer(),
+                                                      Icon(Icons.share)
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                    ..show(),
+                                };
+                    },
+                    icon: const Icon(
+                      Icons.more_vert,
+                      color: Colors.black,
+                    ),
+                  ),
           ),
         ],
       ),
